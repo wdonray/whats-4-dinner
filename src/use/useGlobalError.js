@@ -3,7 +3,12 @@ import { ref } from 'vue'
 const errorMessage = ref('')
 
 function handleError(error) {
-  if (error?.code == 'cancelled') return
+  if (
+    error?.code == 'cancelled' ||
+    error?.message.includes('Redirected') ||
+    error?.message.includes('cancelled')
+  )
+    return
 
   if (error?.message) {
     errorMessage.value = error.message

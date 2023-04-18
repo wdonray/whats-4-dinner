@@ -12,13 +12,20 @@ import Button from '../components/Button.vue'
         </span>
         <hr />
         <h3>Discover delicious recipes for every occasion</h3>
-        <Button to="/recipes"> Get cooking</Button>
+        <div class="btn-actions">
+          <Button to="/recipes"> Get cooking</Button>
+          <Button to="/cookbook"> Cookbook</Button>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <style scoped>
+.btn-actions {
+  display: flex;
+  gap: var(--space-md);
+}
 .header {
   display: flex;
   align-items: center;

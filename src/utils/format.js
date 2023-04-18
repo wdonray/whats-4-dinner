@@ -1,6 +1,6 @@
 import { inject, unref } from 'vue'
 
-export function formatRecipeName(name) {
+export function formatText(name) {
   // Replace all capital letters with a space and the lowercase letter
   const formattedName = name.replace(/([A-Z])/g, ' $1').trim()
   // Capitalize the first letter
@@ -12,7 +12,6 @@ export function formatbase4ToImage(base64) {
 }
 
 export function localDate(dateString) {
-  console.log(dateString)
   return new Date(dateString.slice(0, 10).replaceAll('-', '/')) // replace - with / in ISO date to avoid UTC conversion
 }
 

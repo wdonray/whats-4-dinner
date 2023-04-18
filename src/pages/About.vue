@@ -1,19 +1,17 @@
+<script setup>
+import PageHeader from '../components/PageHeader.vue'
+</script>
+
 <template>
+  <PageHeader title="About • Contact" />
   <div class="about">
-    <div>
-      <h1>
-        <i class="fa-solid fa-bahai"></i> Welcome to What's 4 Dinner
-        <i class="fa-solid fa-bahai"></i>
-      </h1>
-      <hr />
-      <p>
-        At <b>What's 4 Dinner</b>, we make cooking <b>easy and fun</b> for everyone. Our website
-        leverages the power of <b>OpenAI API</b> to generate <b>personalized recipes</b> based on
-        your inputs. Whether you're looking for something <b>quick and easy</b>, or you want to try
-        out something <b>new and exciting</b>, our <b>AI-generated recipes</b> will provide you with
-        the <b>inspiration</b> you need.
-      </p>
-    </div>
+    <p>
+      At <b>What's 4 Dinner</b>, we make cooking <b>easy and fun</b> for everyone. Our website
+      leverages the power of <b>OpenAI API</b> to generate <b>personalized recipes</b> based on your
+      inputs. Whether you're looking for something <b>quick and easy</b>, or you want to try out
+      something <b>new and exciting</b>, our <b>AI-generated recipes</b> will provide you with the
+      <b>inspiration</b> you need.
+    </p>
     <div>
       <h2><i class="fa-solid fa-star"></i> Who is it for?</h2>
       <hr />
@@ -69,15 +67,13 @@
           <img src="/me.jpeg" alt="Portrait" />
         </div>
         <p>
-          Hi there! My name is <b>Donray Williams</b> and I am excited to share my passion for
-          cooking with you. I remember living by myself for the first time and not having a clue
-          about how to cook. It was a daunting task, but I persevered and taught myself how to make
-          some delicious meals. Since then, I have enjoyed experimenting with different recipes and
-          <b>randomizing</b> my ingredients to keep things interesting. My love for cooking was
-          further fuelled by my discovery of <b>Chat GPT</b>. As an AI language model, Chat GPT has
-          helped me explore new and exciting recipes. It's amazing to see how technology can be used
-          to enhance our daily lives, including in the kitchen. I hope my love for cooking and my
-          experiences inspire you to experiment in the kitchen as well.
+          Hello there! I am <b>Donray Williams</b>, an ardent enthusiast of the culinary arts, and I
+          am thrilled to share my passion with you. I remember struggling to cook when I first lived
+          alone, but through perseverance, I learned to create delicious meals. Since then, I have
+          enjoyed experimenting with different recipes and ingredients to keep things interesting.
+          My love for cooking was further fueled by my discovery of Chat GPT, an AI language model
+          that has helped me explore new and exciting recipes. I hope my experiences inspire you to
+          experiment in the kitchen as well.
         </p>
       </div>
     </div>
@@ -97,9 +93,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: var(--space-md);
-  padding: var(--space-md);
   max-width: 1200px;
-  margin: 0 auto;
 
   i {
     color: var(--color-accent);

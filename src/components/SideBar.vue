@@ -15,8 +15,7 @@ const authedMenuItems = computed(() => [
 const unAuthedMenuItems = computed(() => [
   { label: 'Login', link: '/login' },
   { label: 'Create Account', link: '/create-account' },
-  { label: 'About Us', link: '/about' },
-  { label: 'Contact', link: '/contact' }
+  { label: 'About • Contact', link: '/about' }
 ])
 
 async function handleLogout() {
