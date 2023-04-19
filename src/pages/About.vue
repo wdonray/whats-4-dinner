@@ -12,8 +12,26 @@ import PageHeader from '../components/PageHeader.vue'
       something <b>new and exciting</b>, our <b>AI-generated recipes</b> will provide you with the
       <b>inspiration</b> you need.
     </p>
+    <div class="team">
+      <h2>Team • <i>Just Me!</i></h2>
+      <hr />
+      <div class="content">
+        <div class="circle-portrait">
+          <img src="/me.jpeg" alt="Portrait" />
+        </div>
+        <p>
+          Hello there! I am <b>Donray Williams</b>, an ardent enthusiast of the culinary arts, and I
+          am thrilled to share my passion with you. I remember struggling to cook when I first lived
+          alone, but through perseverance, I learned to create delicious meals. Since then, I have
+          enjoyed experimenting with different recipes and ingredients to keep things interesting.
+          My love for cooking was further fueled by my discovery of Chat GPT, an AI language model
+          that has helped me explore new and exciting recipes. I hope my experiences inspire you to
+          experiment in the kitchen as well.
+        </p>
+      </div>
+    </div>
     <div>
-      <h2><i class="fa-solid fa-star"></i> Who is it for?</h2>
+      <h2><i class="fa-solid fa-star"></i> Who is this site for?</h2>
       <hr />
       <p>
         <b>Anyone</b> who wants to cook can benefit from our website. From experienced home cooks to
@@ -58,24 +76,6 @@ import PageHeader from '../components/PageHeader.vue'
         Thank you for <b>visiting our website</b>, and we hope that you enjoy
         <b>using it as much as we do</b>!
       </p>
-    </div>
-    <div class="team">
-      <h2>Team • <i>Just Me!</i></h2>
-      <hr />
-      <div class="content">
-        <div class="circle-portrait">
-          <img src="/me.jpeg" alt="Portrait" />
-        </div>
-        <p>
-          Hello there! I am <b>Donray Williams</b>, an ardent enthusiast of the culinary arts, and I
-          am thrilled to share my passion with you. I remember struggling to cook when I first lived
-          alone, but through perseverance, I learned to create delicious meals. Since then, I have
-          enjoyed experimenting with different recipes and ingredients to keep things interesting.
-          My love for cooking was further fueled by my discovery of Chat GPT, an AI language model
-          that has helped me explore new and exciting recipes. I hope my experiences inspire you to
-          experiment in the kitchen as well.
-        </p>
-      </div>
     </div>
     <div class="content-form">
       <h2>Feedback</h2>
