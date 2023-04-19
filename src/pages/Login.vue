@@ -1,3 +1,27 @@
+<script setup>
+import { ref } from 'vue'
+import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
+import { useRouter } from 'vue-router'
+import Button from '../components/Button.vue'
+
+const email = ref('donrayxwilliams@gmail.com')
+const password = ref('randompassword')
+const showPassword = ref(false)
+const router = useRouter()
+const fetching = ref(false)
+
+async function submit() {
+  try {
+    fetching.value = true
+    const userCredential = await signInWithEmailAndPassword(getAuth(), email.value, password.value)
+
+    if (userCredential) router.push('/')
+  } finally {
+    fetching.value = false
+  }
+}
+</script>
+
 <template>
   <form @submit.prevent="submit">
     <div class="inner-container">
@@ -37,30 +61,6 @@
     </div>
   </form>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
-import { useRouter } from 'vue-router'
-import Button from '../components/Button.vue'
-
-const email = ref('donrayxwilliams@gmail.com')
-const password = ref('randompassword')
-const showPassword = ref(false)
-const router = useRouter()
-const fetching = ref(false)
-
-async function submit() {
-  try {
-    fetching.value = true
-    const userCredential = await signInWithEmailAndPassword(getAuth(), email.value, password.value)
-
-    if (userCredential) router.push('/')
-  } finally {
-    fetching.value = false
-  }
-}
-</script>
 
 <style lang="scss" scoped>
 form {

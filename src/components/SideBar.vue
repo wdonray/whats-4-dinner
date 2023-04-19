@@ -28,7 +28,13 @@ async function handleLogout() {
     <div class="logo">
       <RouterLink :to="!currentUser ? '/login' : '/'"> Logo Here </RouterLink>
     </div>
+
     <div class="main-nav">
+      <hr style="margin: 0" />
+      <h3 v-if="currentUser.displayName" style="padding-left: 1rem">
+        {{ currentUser.displayName }}
+      </h3>
+      <hr style="margin: 0" />
       <RouterLink
         v-for="(item, index) in currentUser ? authedMenuItems : unAuthedMenuItems"
         class="menu-item"
@@ -52,6 +58,7 @@ async function handleLogout() {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  gap: var(--space-xl);
 }
 
 .logo {
@@ -72,7 +79,7 @@ async function handleLogout() {
   position: absolute;
   inset: 0;
   overflow-y: auto;
-  padding-top: 200px;
+  padding-top: 150px;
   padding-bottom: 200px;
 
   display: flex;

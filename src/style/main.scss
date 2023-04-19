@@ -71,6 +71,26 @@ small {
   user-select: text;
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group {
+  max-width: 400px;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
 /* slide-in-right */
 .slide-in-right-enter-from {
   opacity: 0;
@@ -193,6 +213,7 @@ small {
 
 input,
 select {
+  max-width: 400px;
   padding: var(--space-sm);
   border-radius: var(--border-radius);
   border: 1px solid var(--color-border);
