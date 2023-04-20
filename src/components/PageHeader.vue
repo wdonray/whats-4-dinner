@@ -17,7 +17,7 @@ const foodIcon = computed(() => randomFoodIcon())
     <div style="display: flex; align-items: center; gap: var(--space-md)">
       <i
         v-if="!$slots.action"
-        style="color: rgb(66, 196, 141); font-size: 2rem"
+        style="color: var(--color-primary); font-size: 2rem"
         class="fa-solid"
         :class="foodIcon"
       ></i>
@@ -28,3 +28,12 @@ const foodIcon = computed(() => randomFoodIcon())
   </div>
   <hr />
 </template>
+
+<style scoped>
+.page-header-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>

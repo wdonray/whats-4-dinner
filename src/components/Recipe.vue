@@ -2,6 +2,15 @@
   <div class="content">
     <div class="image-container">
       <img :src="formatbase4ToImage(imageData?.data[0].b64_json || recipe.base64Image)" />
+      <i
+        @click="!fetchingBookmarkStatus ? $emit('bookmark', recipe) : null"
+        class="fa-bookmark"
+        :class="{
+          'fa-solid': bookmarked,
+          'fa-regular': !bookmarked,
+          'disabled-icon': fetchingBookmarkStatus
+        }"
+      ></i>
     </div>
     <div>
       <h2>{{ recipe.recipeName }}</h2>
@@ -65,68 +74,89 @@ import { formatbase4ToImage } from '../utils/format'
 
 defineProps({
   recipe: { type: Object, required: true },
-  imageData: { type: [Object, null], default: null }
+  imageData: { type: [Object, null], default: null },
+  bookmarked: { type: Boolean, default: false },
+  fetchingBookmarkStatus: { type: Boolean, required: true }
 })
+
+// fetchingBookmarkStatus
 </script>
 
-<style lang="scss" scoped>
-@mixin listLayout {
-  padding: var(--space-md);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-sm);
+<style scoped>
+.disabled-icon {
+  color: var(--color-disabled);
 }
 .content {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: var(--space-2xl);
   row-gap: var(--space-lg);
   margin-top: var(--space-lg);
+}
 
-  .image-container {
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
-    border: 3px solid var(--color-border);
-    border-radius: var(--border-radius);
+.content .image-container {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  position: relative;
+}
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
+.content .image-container .fa-bookmark {
+  position: absolute;
+  font-size: 35px;
+  color: var(--color-primary);
+  cursor: pointer;
+  left: 90%;
+  bottom: 87%;
+  transform: translate(-50%, -50%);
+}
 
-  ul {
-    @include listLayout;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    li {
-      margin-left: var(--space-sm);
-    }
-  }
+.content .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  border: 4px solid var(--color-secondary);
+}
 
-  ol {
-    @include listLayout;
-  }
+.content ul {
+  padding: var(--space-md);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
 
-  .info {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-sm);
-    border: 3px solid var(--color-border);
-    border-radius: var(--border-radius);
-    padding: var(--space-md);
-    background-color: var(--color-nav-default);
-    align-items: center;
+.content ul li {
+  margin-left: var(--space-sm);
+}
 
-    div h4 {
-      margin: 0;
-    }
+.content ol {
+  padding: var(--space-md);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
 
-    h4 {
-      margin-top: 0;
-      margin-bottom: var(--space-md);
-    }
-  }
+.content .info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-sm);
+  border: 3px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+  background-color: var(--color-secondary);
+  align-items: center;
+}
+
+.content .info div h4 {
+  margin: 0;
+}
+
+.content .info h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
 }
 </style>

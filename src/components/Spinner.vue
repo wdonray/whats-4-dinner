@@ -8,10 +8,6 @@
 
 <script setup>
 defineProps({
-  color: {
-    type: String,
-    default: 'white'
-  },
   size: {
     type: String,
     default: '0.5rem'
@@ -22,7 +18,7 @@ defineProps({
 <style scoped>
 .spinner {
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  background-color: v-bind(color);
+  background-color: var(--color-primary);
   border-radius: 100%;
   display: inline-block;
   width: v-bind(size);

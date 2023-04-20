@@ -85,30 +85,30 @@ async function submit() {
   </form>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 form {
   position: relative;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: var(--space-md);
+}
 
-  .inner-container {
-    padding: var(--space-md) var(--space-3xl);
-  }
+form .inner-container {
+  padding: var(--space-md) var(--space-3xl);
+}
 
-  .form-group {
-    max-width: 400px;
-    margin-bottom: 1rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
+form .form-group {
+  max-width: 400px;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
 
-  .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-  }
+form .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

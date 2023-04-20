@@ -10,7 +10,7 @@ defineProps({
   <div class="empty-content">
     <Transition name="fade" mode="out-in">
       <div v-if="fetching" class="content">
-        <Spinner />
+        <Spinner size="2rem" />
       </div>
       <div v-else class="content">
         <slot />
@@ -19,18 +19,17 @@ defineProps({
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .empty-content {
-  background-color: var(--color-nav-default);
+  background-color: var(--color-secondary);
   border-radius: var(--border-radius);
   height: 500px;
-
-  .content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+}
+.empty-content .content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -13,12 +13,12 @@ const search = ref('')
 const notification = ref('')
 const fetching = ref(false)
 const notificationType = ref('success')
-const recipeSaved = ref(false)
+const bookmarked = ref(false)
 
 const { data: recipeData, post: sendMessage } = useApiFetch('chat/completions')
 const { data: imageData, post: generateImage } = useApiFetch('images/generations')
 
-const { save } = useDb('cookbook')
+const { bookmarkRecipe, fetching: dbRefreshing } = useDb('cookbook')
 
 const recipe = computed(() =>
   recipeData.value?.choices?.length
@@ -51,7 +51,6 @@ async function submit() {
 
     notification.value = 'Recipe created!'
     notificationType.value = 'success'
-    recipeSaved.value = false
   } finally {
     setTimeout(() => {
       notification.value = ''
@@ -63,19 +62,22 @@ async function submit() {
 
 async function bookmark() {
   try {
-    await save({
+    const dbData = {
       ...recipe.value,
       createdAt: new Date(),
       base64Image: imageData.value.data[0].b64_json
-    })
-    recipeSaved.value = true
-    notification.value = 'Recipe bookmarked!'
-    notificationType.value = 'success'
+    }
+
+    bookmarked.value = await bookmarkRecipe(dbData, recipeBookmarkedCallback)
   } finally {
     setTimeout(() => {
       notification.value = ''
     }, 3000)
   }
+}
+
+function recipeBookmarkedCallback(state) {
+  notification.value = state ? 'Recipe bookmarked!' : 'Recipe removed from bookmarks!'
 }
 </script>
 
@@ -103,22 +105,16 @@ async function bookmark() {
       <EmptyContent v-if="!renderRecipe" :fetching="fetching">
         <h1 class="underblock">Discover a New Recipe</h1>
       </EmptyContent>
-      <Recipe v-else-if="renderRecipe" :image-data="imageData" :recipe="recipe">
+      <Recipe
+        v-else-if="renderRecipe"
+        :image-data="imageData"
+        :recipe="recipe"
+        :bookmarked="bookmarked"
+        @bookmark="bookmark"
+        :fetching-bookmark-status="dbRefreshing"
+      >
         <template #actions>
           <div class="actions">
-            <Button :disabled="recipeSaved" @click="bookmark" link>
-              <span>
-                <i
-                  :class="{
-                    disabled: recipeSaved,
-                    'fa-bookmark': !recipeSaved,
-                    'fa-circle-check': recipeSaved
-                  }"
-                  class="fa-solid"
-                ></i>
-                <b>{{ recipeSaved ? 'Saved' : 'Bookmark' }}</b>
-              </span>
-            </Button>
             <Button @click="submit" link>
               <span><i class="fa-solid fa-arrows-rotate"></i> <b>Try again</b></span>
             </Button>
@@ -132,7 +128,7 @@ async function bookmark() {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .recipe-container {
   display: grid;
   grid-template-columns: 1fr;

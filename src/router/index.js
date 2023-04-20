@@ -4,7 +4,7 @@ import { getAuth } from '@firebase/auth'
 const routeAuthMap = {
   home: true,
   about: false,
-  recipes: true,
+  'create-recipe': true,
   login: false,
   'create-account': false,
   contact: false,

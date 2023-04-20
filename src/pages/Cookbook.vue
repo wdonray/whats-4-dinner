@@ -4,19 +4,19 @@ import useDb from '../use/useDb'
 import PageHeader from '../components/PageHeader.vue'
 import Button from '../components/Button.vue'
 import EmptyContent from '../components/EmptyContent.vue'
-import { formatbase4ToImage, formatDate } from '../utils/format'
 import { sortByDate, sortByNumber, sortByString } from '../utils/sort'
 import Recipe from '../components/Recipe.vue'
 import { createAndDownloadPdf } from '../utils/pdf'
-
-// Add delete button
+import RecipeHighlight from '../components/RecipeHighlight.vue'
+import Notification from '../components/Notification.vue'
 
 const sort = ref('')
 const search = ref('')
 const ascendingSort = ref(true)
 const selectedRecipe = ref(null)
+const notification = ref('')
 
-const { items, list, fetching } = useDb('cookbook')
+const { items, list, fetching, bookmarkRecipe, fetching: dbRefreshing } = useDb('cookbook')
 
 const itemsLength = computed(() => toRaw(items.value).length)
 
@@ -60,6 +60,13 @@ const sortDirectionIcon = computed(() =>
   ascendingSort.value ? 'fa-circle-arrow-up' : 'fa-circle-arrow-down'
 )
 
+const selectedRecipeBookmarked = computed(() => {
+  return toRaw(items.value).some((item) => {
+    const recipe = Object.values(item)[0]
+    return recipe.recipeName === selectedRecipe.value.recipeName
+  })
+})
+
 function parseTime(timeStr) {
   const regex = /(\d+)\s*(hour|minute)s?/
   const match = timeStr.match(regex)
@@ -75,10 +82,27 @@ function parseTime(timeStr) {
   return timeUnit === 'hour' ? parseInt(timeValue) * 60 : parseInt(timeValue)
 }
 
+async function bookmark() {
+  try {
+    const dbData = { ...selectedRecipe.value, createdAt: new Date() }
+
+    await bookmarkRecipe(dbData, recipeBookmarkedCallback)
+  } finally {
+    setTimeout(() => {
+      notification.value = ''
+    }, 3000)
+  }
+}
+
+function recipeBookmarkedCallback(state) {
+  notification.value = state ? 'Recipe bookmarked!' : 'Recipe removed from bookmarks!'
+}
+
 list()
 </script>
 
 <template>
+  <Notification :message="notification" />
   <PageHeader title="My Cookbook" :fetching="fetching">
     <template #action v-if="selectedRecipe != null">
       <Button link @click="selectedRecipe = null">
@@ -124,35 +148,12 @@ list()
         </div>
       </div>
       <div class="cookbook">
-        <div
-          class="recipe"
+        <RecipeHighlight
           v-for="item in filteredItems"
           :key="item.id"
-          @click="selectedRecipe = item"
-        >
-          <img :src="formatbase4ToImage(item.base64Image)" :alt="item.recipeName" />
-          <div class="content">
-            <h2 style="margin-top: 0">{{ item.recipeName }}</h2>
-            <div class="inner-content">
-              <div>
-                <b>Prep Time</b>
-                <span>{{ item.prepTime }}</span>
-              </div>
-              <div>
-                <b>Cook Time</b>
-                <span>{{ item.cookTime }}</span>
-              </div>
-              <div>
-                <b>Serving Size</b>
-                <span>{{ item.servingSize }}</span>
-              </div>
-              <div>
-                <b>Save Date</b>
-                <span>{{ formatDate(item.createdAt.toDate()) }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          :recipe="item"
+          @select="(recipe) => (selectedRecipe = recipe)"
+        />
       </div>
     </div>
     <EmptyContent v-else-if="!filteredItems.length" :fetching="fetching">
@@ -164,7 +165,12 @@ list()
       </div>
     </EmptyContent>
     <div v-else-if="selectedRecipe != null">
-      <Recipe :recipe="selectedRecipe">
+      <Recipe
+        :recipe="selectedRecipe"
+        :bookmarked="selectedRecipeBookmarked"
+        @bookmark="bookmark"
+        :fetching-bookmark-status="dbRefreshing"
+      >
         <template #actions>
           <div class="actions">
             <Button @click="createAndDownloadPdf(selectedRecipe, selectedRecipe.recipeName)" link>
@@ -177,7 +183,7 @@ list()
   </Transition>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .navigate {
   display: flex;
   justify-content: center;
@@ -189,90 +195,35 @@ list()
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
 
-  .filter {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr 1fr 0.2fr;
+.filter-section .filter {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 0.2fr;
+}
 
-    label {
-      text-align: right;
-      font-weight: bold;
-      margin-right: var(--space-sm);
-    }
+.filter-section .filter label {
+  text-align: right;
+  font-weight: bold;
+  margin-right: var(--space-sm);
+}
 
-    .asc-sort {
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: var(--color-accent);
-    }
-  }
+.filter-section .filter .asc-sort {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--color-primary);
 }
 
 .cookbook {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-md);
+}
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
+  .cookbook {
     grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .recipe {
-    display: grid;
-    grid-template-columns: 1fr;
-    background-color: var(--color-nav-default);
-    border: 3px solid white;
-    border-radius: var(--border-radius);
-
-    &:hover {
-      cursor: pointer;
-      border: 3px solid var(--color-accent);
-      transform: scale(1.01);
-      transition: transform 0.2s ease-in-out;
-    }
-
-    img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-
-      border-bottom: 3px solid white;
-    }
-
-    .content {
-      padding: var(--space-md);
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--space-sm);
-
-      h2 {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-
-      span,
-      b {
-        font-size: small;
-      }
-
-      .inner-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-sm);
-
-        div {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--space-sm);
-
-          &:nth-child(2n) {
-            text-align: end;
-          }
-        }
-      }
-    }
   }
 }
 </style>

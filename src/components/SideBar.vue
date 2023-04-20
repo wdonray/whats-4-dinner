@@ -6,16 +6,16 @@ import { getAuth, signOut } from '@firebase/auth'
 defineProps({ currentUser: { type: Object, required: true } })
 
 const authedMenuItems = computed(() => [
-  { label: 'Recipes', link: '/recipes' },
-  { label: 'My Cookbook', link: '/cookbook' },
-  { label: 'About • Contact', link: '/about' },
-  { label: 'Account', link: '/account' }
+  { label: 'Create recipe', link: '/create-recipe', icon: 'fa-solid fa-square-plus' },
+  { label: 'My cookbook', link: '/cookbook', icon: 'fa-solid fa-book-bookmark' },
+  { label: 'About', link: '/about', icon: 'fa-solid fa-circle-info' },
+  { label: 'Profile', link: '/account', icon: 'fa-solid fa-user' }
 ])
 
 const unAuthedMenuItems = computed(() => [
-  { label: 'Login', link: '/login' },
-  { label: 'Create Account', link: '/create-account' },
-  { label: 'About • Contact', link: '/about' }
+  { label: 'Login', link: '/login', icon: 'fa-solid fa-right-to-bracket' },
+  { label: 'Create account', link: '/create-account', icon: 'fa-solid fa-user-plus' },
+  { label: 'About', link: '/about', icon: 'fa-solid fa-circle-info' }
 ])
 
 async function handleLogout() {
@@ -26,33 +26,31 @@ async function handleLogout() {
 <template>
   <nav class="site-nav">
     <div class="logo">
-      <RouterLink :to="!currentUser ? '/login' : '/'"> Logo Here </RouterLink>
+      <RouterLink :to="!currentUser ? '/login' : '/'"> what's 4 dinner</RouterLink>
     </div>
-
     <div class="main-nav">
-      <hr style="margin: 0" />
-      <h3 v-if="currentUser.displayName" style="padding-left: 1rem">
-        {{ currentUser.displayName }}
-      </h3>
-      <hr style="margin: 0" />
       <RouterLink
         v-for="(item, index) in currentUser ? authedMenuItems : unAuthedMenuItems"
         class="menu-item"
+        :class="{ active: $route.path === item.link }"
         :to="item.link"
         :key="index"
       >
-        {{ item.label }}
+        <i
+          v-if="item.icon"
+          :class="item.icon"
+          style="margin-right: var(--space-md); font-size: 1rem"
+        ></i
+        >{{ item.label }}
       </RouterLink>
-
       <a v-if="currentUser" class="menu-item" href="#" @click="handleLogout">Logout</a>
     </div>
   </nav>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .site-nav {
   grid-area: main-nav;
-  background-color: var(--color-nav-default);
   position: sticky;
   top: 0;
   height: 100vh;
@@ -66,7 +64,6 @@ async function handleLogout() {
   top: 0;
   right: 0;
   left: 0;
-  background: rgb(25 31 44 / 60%);
   backdrop-filter: blur(8px);
   height: 132px;
   display: flex;
@@ -75,24 +72,39 @@ async function handleLogout() {
   z-index: 1;
 }
 
+.logo a {
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .main-nav {
   position: absolute;
   inset: 0;
   overflow-y: auto;
   padding-top: 150px;
   padding-bottom: 200px;
-
   display: flex;
-
   flex-direction: column;
 }
 
 .menu-item {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
   padding: var(--space-lg) var(--space-3xl);
+  color: var(--color-primary);
+  font-size: 16px;
+}
 
-  &:hover {
-    background-color: #2d374e;
-    cursor: pointer;
-  }
+.menu-item:hover {
+  cursor: pointer;
+}
+
+.active {
+  background-color: var(--color-secondary);
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 </style>

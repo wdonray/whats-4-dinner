@@ -30,6 +30,7 @@ const props = defineProps({
   right: var(--space-md);
   top: var(--space-md);
   border-radius: var(--border-radius);
+  color: white;
 }
 
 .close {
@@ -37,7 +38,7 @@ const props = defineProps({
 }
 
 .notice {
-  background-color: var(--color-accent);
+  background-color: var(--color-primary);
 }
 
 .success {

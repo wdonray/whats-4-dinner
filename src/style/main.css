@@ -1,14 +1,12 @@
 :root {
-  --background-color: #222c3a;
-  --color-accent: #1a98ff;
+  --background-color: white;
+  --color-primary: #ff4d1b;
+  --color-secondary: #ffe4dd;
   --color-focus: #025da9;
-  --color-text: #fff;
-  --color-line: #344a6d;
-  --color-border: #5d85c5;
-  --color-nav-default: #191f2c;
+  --color-text: black;
+  --color-border: #ff4d1b;
   --color-disabled: #5e6167;
   --border-radius: 0.25rem;
-
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -16,7 +14,6 @@
   --space-xl: 2rem;
   --space-2xl: 2.5rem;
   --space-3xl: 3rem;
-
   --ease-out-custom: cubic-bezier(0.38, 0.7, 0.125, 1);
 }
 
@@ -26,7 +23,6 @@ a {
 }
 
 a:hover {
-  text-decoration: underline var(--color-accent) solid 2px;
   text-underline-offset: 3px;
   background-color: transparent;
 }
@@ -42,7 +38,7 @@ p {
 
 hr {
   border-bottom-width: 0;
-  border-top: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-border);
   margin: var(--space-md) 0;
   border-left: 0;
   border-right: 0;
@@ -51,7 +47,7 @@ hr {
 html {
   background-color: var(--background-color);
   font-size: 1rem;
-  font-family: Oately, system-ui;
+  font-family: Laksa, system-ui;
   color: var(--color-text);
   line-height: 1.38;
 }
@@ -61,6 +57,73 @@ body {
   touch-action: pan-y;
   padding: 0;
   margin: 0;
+}
+
+.btn {
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  border: 0;
+  text-decoration: none;
+  line-height: 1;
+  transition: background-color 0.5s;
+  font-weight: 600;
+}
+
+.btn:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.btn:disabled:hover {
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.btn:disabled:not(.loading):not(.link) {
+  background-color: var(--color-border);
+  color: var(--color-disabled);
+}
+
+.btn:disabled.link:not(.loading) {
+  color: var(--color-disabled);
+}
+
+.btn:disabled.link:not(.loading):hover {
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.btn.loading {
+  pointer-events: none;
+}
+
+.btn.link {
+  background-color: transparent;
+  border: transparent;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.btn.link:hover {
+  text-decoration: underline var(--color-primary) solid 2px;
+  text-underline-offset: 3px;
+  background-color: transparent;
+}
+
+.btn-primary {
+  color: white;
+  background-color: var(--color-primary);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 p,
@@ -175,8 +238,7 @@ small {
 .underblock {
   position: relative;
   z-index: 0;
-
-  --color-underblock: var(--color-accent);
+  --color-underblock: var(--color-primary);
 }
 
 .underblock::after {
@@ -204,13 +266,6 @@ small {
   transition: transform 0.5s var(--ease-out-custom), opacity 0.1s var(--ease-out-custom);
 }
 
-.page-header-container {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  align-items: center;
-  justify-content: space-between;
-}
-
 input,
 select {
   max-width: 400px;
@@ -221,20 +276,22 @@ select {
   color: var(--color-text);
   width: calc(100% - 20px);
   font-size: 1rem;
+}
 
-  &:focus {
-    border: 2px solid var(--color-accent);
-    outline: var(--color-accent);
-  }
+input:focus,
+select:focus {
+  border: 2px solid var(--color-primary);
+  outline: var(--color-primary);
+}
 
-  &::placeholder {
-    color: var(--color-secondary);
-    opacity: 0.7;
-  }
+input::placeholder,
+select::placeholder {
+  opacity: 0.7;
+}
 
-  option {
-    color: black;
-  }
+input option,
+select option {
+  color: black;
 }
 
 .post {
@@ -251,25 +308,26 @@ select {
   align-items: center;
   gap: var(--space-lg);
   padding: var(--space-2xl);
+}
 
-  .button span {
-    position: relative;
-    .disabled {
-      color: var(--color-disabled);
-    }
+.actions .btn span {
+  position: relative;
+}
 
-    i {
-      color: var(--color-accent);
-      position: absolute;
-      bottom: 120%;
-      left: 50%;
-      transform: translate(-50%);
-    }
+.actions .btn span .disabled {
+  color: var(--color-disabled);
+}
 
-    b {
-      margin-top: var(--space-sm);
-    }
-  }
+.actions .btn span i {
+  color: var(--color-primary);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.actions .btn span b {
+  margin-top: var(--space-sm);
 }
 
 a {

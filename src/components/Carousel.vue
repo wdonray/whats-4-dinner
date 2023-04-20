@@ -58,74 +58,73 @@ watch(currentItem, () => (imageLoading.value = true))
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .carousel {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  .icon-container {
-    font-size: 50px;
-    cursor: pointer;
-    color: var(--color-text);
-  }
-
-  .icon-container:first-child {
-    transform: translate(50%);
-  }
-
-  .icon-container:last-child {
-    transform: translate(-50%);
-  }
-
-  .loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-  }
 }
 
+.carousel .icon-container {
+  font-size: 50px;
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.carousel .icon-container:first-child {
+  transform: translate(50%);
+}
+
+.carousel .icon-container:last-child {
+  transform: translate(-50%);
+}
+
+.carousel .loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
 .carousel-item {
   width: 800px;
   height: auto;
+}
 
-  b {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+.carousel-item b {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  .image-container {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%;
-    border: 3px solid var(--color-border);
-    border-radius: 2px;
+.carousel-item .image-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  border: 3px solid var(--color-border);
+  border-radius: 2px;
+}
 
-    img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.carousel-item .image-container img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .cover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--color-nav-default);
-      opacity: 0.3;
-      width: 100%;
-      height: 100%;
-    }
-  }
+.carousel-item .image-container .cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-primary);
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
 }
 </style>

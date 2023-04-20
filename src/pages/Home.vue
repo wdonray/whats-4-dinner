@@ -13,8 +13,8 @@ import Button from '../components/Button.vue'
         <hr />
         <h3>Discover delicious recipes for every occasion</h3>
         <div class="btn-actions">
-          <Button to="/recipes"> Get cooking</Button>
-          <Button to="/cookbook"> Cookbook</Button>
+          <Button class="btn-primary" to="/create-recipe"> Get cooking</Button>
+          <Button class="btn-secondary" to="/cookbook"> Cookbook</Button>
         </div>
       </div>
     </section>

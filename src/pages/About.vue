@@ -3,7 +3,7 @@ import PageHeader from '../components/PageHeader.vue'
 </script>
 
 <template>
-  <PageHeader title="About • Contact" />
+  <PageHeader title="About" />
   <div class="about">
     <p>
       At <b>What's 4 Dinner</b>, we make cooking <b>easy and fun</b> for everyone. Our website
@@ -88,36 +88,35 @@ import PageHeader from '../components/PageHeader.vue'
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .about {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: var(--space-md);
   max-width: 1200px;
+}
 
-  i {
-    color: var(--color-accent);
-  }
+.about i {
+  color: var(--color-primary);
+}
 
-  .team {
-    .content {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      align-items: center;
-      .circle-portrait {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        overflow: hidden;
-      }
+.about .team .content {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+}
 
-      .circle-portrait img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-    }
-  }
+.about .team .content .circle-portrait {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.about .team .content .circle-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 </style>
 

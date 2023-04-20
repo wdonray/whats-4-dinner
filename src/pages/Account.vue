@@ -1,68 +1,3 @@
-<template>
-  <Notification :message="notification" />
-  <PageHeader title="Account" />
-  <Transition name="slide-in-right" mode="out-in">
-    <form @submit.prevent="submit" class="account" v-if="currentUser">
-      <div class="grid-stack">
-        <div class="grid-row">
-          <h4>Display name</h4>
-          <input v-model="displayName" />
-        </div>
-      </div>
-      <div class="grid-stack">
-        <div class="grid-row">
-          <h4 v-if="emailVerified || sentVerificationEmail">{{ verificationEmailText }}</h4>
-          <a v-else href="#" @click="sendVerificationEmail">
-            <h4>{{ verificationEmailText }}</h4>
-          </a>
-          <div class="row">
-            <i v-if="emailVerified" style="color: green" class="fa-solid fa-circle-check"></i>
-            <i v-else style="color: red" class="fa-solid fa-circle-xmark"></i>
-            <span style="font-size: small">Verification Status</span>
-          </div>
-        </div>
-        <div class="grid-row">
-          <h4>Email</h4>
-          <input v-model="email" />
-        </div>
-      </div>
-      <div class="grid-stack">
-        <div class="grid-row">
-          <h4>Password</h4>
-          <div class="stack">
-            <a href="#" @click="showPassword = !showPassword">{{
-              showPassword ? 'Hide' : 'Show'
-            }}</a>
-            <input
-              v-model="password"
-              :type="showPassword ? 'text' : 'password'"
-              id="password"
-              placeholder="Enter Password"
-            />
-          </div>
-        </div>
-        <div class="grid-row">
-          <h4>Confirm password</h4>
-          <input
-            v-model="confirmPassword"
-            :type="showPassword ? 'text' : 'password'"
-            id="confirm-password"
-            placeholder="Confirm password"
-          />
-        </div>
-      </div>
-      <div class="row footer" style="justify-content: end">
-        <Button link type="button" @click="reset" :loading="fetching">Reset</Button>
-        <Button type="submit" :loading="fetching">Save</Button>
-      </div>
-    </form>
-
-    <EmptyContent v-else-if="!currentUser" :fetching="!currentUser">
-      <h1 class="underblock">Discover a New Recipe</h1>
-    </EmptyContent>
-  </Transition>
-</template>
-
 <script setup>
 import {
   getAuth,
@@ -135,7 +70,74 @@ function reset() {
 }
 </script>
 
-<style lang="scss" scoped>
+<template>
+  <Notification :message="notification" />
+  <PageHeader title="Account" />
+  <Transition name="slide-in-right" mode="out-in">
+    <form @submit.prevent="submit" class="account" v-if="currentUser">
+      <div class="grid-stack">
+        <div class="grid-row">
+          <h4>Display name</h4>
+          <input v-model="displayName" />
+        </div>
+      </div>
+      <div class="grid-stack">
+        <div class="grid-row">
+          <h4 v-if="emailVerified || sentVerificationEmail">{{ verificationEmailText }}</h4>
+          <a v-else href="#" @click="sendVerificationEmail">
+            <h4>{{ verificationEmailText }}</h4>
+          </a>
+          <div class="row">
+            <i v-if="emailVerified" style="color: green" class="fa-solid fa-circle-check"></i>
+            <i v-else style="color: red" class="fa-solid fa-circle-xmark"></i>
+            <span style="font-size: small">Verification Status</span>
+          </div>
+        </div>
+        <div class="grid-row">
+          <h4>Email</h4>
+          <input v-model="email" />
+        </div>
+      </div>
+      <div class="grid-stack">
+        <div class="grid-row">
+          <h4>Password</h4>
+          <div class="stack">
+            <a href="#" @click="showPassword = !showPassword">{{
+              showPassword ? 'Hide' : 'Show'
+            }}</a>
+            <input
+              v-model="password"
+              :type="showPassword ? 'text' : 'password'"
+              id="password"
+              placeholder="Enter Password"
+            />
+          </div>
+        </div>
+        <div class="grid-row">
+          <h4>Confirm password</h4>
+          <input
+            v-model="confirmPassword"
+            :type="showPassword ? 'text' : 'password'"
+            id="confirm-password"
+            placeholder="Confirm password"
+          />
+        </div>
+      </div>
+      <div class="row footer" style="justify-content: end">
+        <Button class="btn-secondary" type="button" @click="reset" :loading="fetching"
+          >Reset</Button
+        >
+        <Button class="btn-primary" type="submit" :loading="fetching">Save</Button>
+      </div>
+    </form>
+
+    <EmptyContent v-else-if="!currentUser" :fetching="!currentUser">
+      <h1 class="underblock">Discover a New Recipe</h1>
+    </EmptyContent>
+  </Transition>
+</template>
+
+<style scoped>
 .account {
   margin-top: 2rem;
   display: grid;
@@ -163,8 +165,8 @@ function reset() {
   }
 
   .footer {
-    background-color: var(--color-nav-default);
     padding: 1rem 2rem;
+
     button {
       padding: 0.5rem 2rem;
     }
