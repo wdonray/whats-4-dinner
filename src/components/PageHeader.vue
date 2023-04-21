@@ -1,12 +1,21 @@
 <script setup>
 import { randomFoodIcon } from '../utils/foodIcons'
 import { computed } from 'vue'
+import useBreakpoint from '../use/useBreakpoint'
 
-defineProps({
-  title: { type: String, required: true }
+const { desktop } = useBreakpoint()
+
+const props = defineProps({
+  title: { type: String, required: true },
+  alwaysShowTitle: { type: Boolean, default: false }
 })
 
 defineEmits(['submit'])
+
+const displayTitle = computed(() => {
+  if (props.alwaysShowTitle) return true
+  return desktop.value
+})
 
 const foodIcon = computed(() => randomFoodIcon())
 </script>
@@ -21,7 +30,7 @@ const foodIcon = computed(() => randomFoodIcon())
         :class="foodIcon"
       ></i>
       <slot v-else name="action" />
-      <h1 style="margin: 0" v-if="!$slots.action">{{ title }}</h1>
+      <h1 style="margin: 0" v-if="displayTitle && !$slots.action">{{ title }}</h1>
     </div>
     <slot name="search" />
   </div>
@@ -35,5 +44,12 @@ const foodIcon = computed(() => randomFoodIcon())
   align-items: center;
   justify-content: space-between;
   position: sticky;
+}
+
+@media (max-width: 768px) {
+  .page-header-container {
+    grid-template-columns: 0.2fr 1fr;
+    gap: var(--space-md);
+  }
 }
 </style>

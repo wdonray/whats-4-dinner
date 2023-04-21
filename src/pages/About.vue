@@ -3,7 +3,7 @@ import PageHeader from '../components/PageHeader.vue'
 </script>
 
 <template>
-  <PageHeader title="About" />
+  <PageHeader title="About" always-show-title />
   <div class="about">
     <p>
       At <b>What's 4 Dinner</b>, we make cooking <b>easy and fun</b> for everyone. Our website
@@ -106,11 +106,25 @@ import PageHeader from '../components/PageHeader.vue'
   align-items: center;
 }
 
+@media (max-width: 768px) {
+  .about .team .content {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+}
+
 .about .team .content .circle-portrait {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .about .team .content .circle-portrait {
+    margin: 0 auto;
+  }
 }
 
 .about .team .content .circle-portrait img {

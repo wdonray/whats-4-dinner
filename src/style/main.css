@@ -269,7 +269,6 @@ small {
 
 input,
 select {
-  max-width: 400px;
   padding: var(--space-sm);
   border-radius: var(--border-radius);
   border: transparent;

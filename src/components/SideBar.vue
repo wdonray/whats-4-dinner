@@ -2,6 +2,9 @@
 import { RouterLink } from 'vue-router'
 import { computed } from 'vue'
 import { getAuth, signOut } from '@firebase/auth'
+import useBreakpoint from '../use/useBreakpoint'
+
+const { mobile, tablet } = useBreakpoint()
 
 defineProps({ currentUser: { type: Object, required: true } })
 
@@ -18,21 +21,37 @@ const unAuthedMenuItems = computed(() => [
   { label: 'About', link: '/about', icon: 'fa-solid fa-circle-info' }
 ])
 
+const navClass = computed(() => {
+  return tablet.value ? 'site-nav' : 'mobile-site-nav'
+})
+
+const mainNavClass = computed(() => {
+  return tablet.value ? 'main-nav' : 'mobile-main-nav'
+})
+
+const menuItemClass = computed(() => {
+  return tablet.value ? 'menu-item' : 'mobile-menu-item'
+})
+
 async function handleLogout() {
   await signOut(getAuth())
 }
 </script>
 
 <template>
-  <nav class="site-nav">
-    <div class="logo">
+  <nav :class="navClass">
+    <div class="logo" v-if="tablet">
       <RouterLink :to="!currentUser ? '/login' : '/'"> what's 4 dinner</RouterLink>
     </div>
-    <div class="main-nav">
+    <div :class="mainNavClass">
       <RouterLink
         v-for="(item, index) in currentUser ? authedMenuItems : unAuthedMenuItems"
-        class="menu-item"
-        :class="{ active: $route.path === item.link }"
+        :class="{
+          active: $route.path === item.link && tablet,
+          'mobile-active': $route.path === item.link && !tablet,
+          'menu-item': tablet,
+          'mobile-menu-item': !tablet
+        }"
         :to="item.link"
         :key="index"
       >
@@ -40,10 +59,14 @@ async function handleLogout() {
           v-if="item.icon"
           :class="item.icon"
           style="margin-right: var(--space-md); font-size: 1rem"
-        ></i
-        >{{ item.label }}
+        ></i>
+
+        <span v-if="$route.path === item.link || !mobile">{{ item.label }}</span>
       </RouterLink>
-      <a v-if="currentUser" class="menu-item" href="#" @click="handleLogout">Logout</a>
+      <a v-if="currentUser" :class="menuItemClass" href="#" @click="handleLogout">
+        <span v-if="!mobile">Logout</span>
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
     </div>
   </nav>
 </template>
@@ -57,6 +80,24 @@ async function handleLogout() {
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
+}
+
+.mobile-site-nav {
+  background-color: white;
+  width: 100%;
+  grid-area: main-nav;
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding-top: 0.75rem;
+  padding-inline: 0;
+  padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
+  transform: translateY(0);
+  transition-property: background-color, transform;
+  border-top: 1px solid var(--color-line);
+  box-shadow: 0 -1px 8px rgb(0 0 0 / 8%);
 }
 
 .logo {
@@ -88,11 +129,27 @@ async function handleLogout() {
   flex-direction: column;
 }
 
+.mobile-main-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .menu-item {
   display: flex;
   align-items: center;
   font-weight: 700;
   padding: var(--space-lg) var(--space-3xl);
+  color: var(--color-primary);
+  font-size: 16px;
+}
+
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  padding: var(--space-md);
   color: var(--color-primary);
   font-size: 16px;
 }
@@ -106,5 +163,10 @@ async function handleLogout() {
   border-radius: 0.5rem;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.mobile-active {
+  background-color: var(--color-secondary);
+  border-radius: 23px;
 }
 </style>

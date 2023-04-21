@@ -11,8 +11,11 @@ import PageHeader from '../components/PageHeader.vue'
 import Button from '../components/Button.vue'
 import EmptyContent from '../components/EmptyContent.vue'
 import Notification from '../components/Notification.vue'
+import useBreakpoint from '../use/useBreakpoint'
 
+const { mobile } = useBreakpoint()
 const { currentUser } = getAuth()
+
 const email = ref(currentUser?.email)
 const password = ref('')
 const confirmPassword = ref('')
@@ -72,7 +75,7 @@ function reset() {
 
 <template>
   <Notification :message="notification" />
-  <PageHeader title="Account" />
+  <PageHeader title="Profile" always-show-title />
   <Transition name="slide-in-right" mode="out-in">
     <form @submit.prevent="submit" class="account" v-if="currentUser">
       <div class="grid-stack">
@@ -123,7 +126,7 @@ function reset() {
           />
         </div>
       </div>
-      <div class="row footer" style="justify-content: end">
+      <div class="row footer" :style="{ 'justify-content': mobile ? 'center' : 'end' }">
         <Button class="btn-secondary" type="button" @click="reset" :loading="fetching"
           >Reset</Button
         >

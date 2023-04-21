@@ -98,11 +98,23 @@ defineProps({
   margin-top: var(--space-lg);
 }
 
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
 .content .image-container {
   width: 400px;
   height: 400px;
   border-radius: var(--border-radius);
   position: relative;
+}
+
+@media (max-width: 768px) {
+  .content .image-container {
+    margin: 0 auto;
+  }
 }
 
 .content .image-container .fetching {

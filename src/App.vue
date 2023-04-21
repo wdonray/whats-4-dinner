@@ -65,11 +65,30 @@ onAuthStateChanged(getAuth(), (user) => {
     'main-nav footer .';
 }
 
+@media (max-width: 768px) {
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+      'main'
+      'footer'
+      'main-nav';
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+}
+
 .main {
   background-color: var(--background-color);
   grid-area: main;
   min-height: 100vh;
   max-width: 100vw;
   padding: 3rem;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 1rem;
+  }
 }
 </style>
