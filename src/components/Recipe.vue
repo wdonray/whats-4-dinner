@@ -1,7 +1,14 @@
 <template>
   <div class="content">
     <div class="image-container">
+      <Transition name="fade" mode="out-in">
+        <div v-if="fetchingBookmarkStatus" class="fetching">
+          <Spinner size="1.5rem" />
+        </div>
+      </Transition>
+
       <img :src="formatbase4ToImage(imageData?.data[0].b64_json || recipe.base64Image)" />
+
       <i
         @click="!fetchingBookmarkStatus ? $emit('bookmark', recipe) : null"
         class="fa-bookmark"
@@ -71,6 +78,7 @@
 
 <script setup>
 import { formatbase4ToImage } from '../utils/format'
+import Spinner from './Spinner.vue'
 
 defineProps({
   recipe: { type: Object, required: true },
@@ -78,14 +86,9 @@ defineProps({
   bookmarked: { type: Boolean, default: false },
   fetchingBookmarkStatus: { type: Boolean, required: true }
 })
-
-// fetchingBookmarkStatus
 </script>
 
 <style scoped>
-.disabled-icon {
-  color: var(--color-disabled);
-}
 .content {
   position: relative;
   display: grid;
@@ -98,9 +101,24 @@ defineProps({
 .content .image-container {
   width: 400px;
   height: 400px;
-  object-fit: cover;
   border-radius: var(--border-radius);
   position: relative;
+}
+
+.content .image-container .fetching {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius);
+  background-color: var(--color-disabled);
+  opacity: 0.4;
+  z-index: 2;
 }
 
 .content .image-container .fa-bookmark {
@@ -109,8 +127,14 @@ defineProps({
   color: var(--color-primary);
   cursor: pointer;
   left: 90%;
-  bottom: 87%;
+  bottom: 88%;
   transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.content .image-container .fa-bookmark.disabled-icon {
+  color: var(--color-disabled);
+  cursor: not-allowed;
 }
 
 .content .image-container img {
@@ -119,6 +143,10 @@ defineProps({
   object-fit: cover;
   border-radius: var(--border-radius);
   border: 4px solid var(--color-secondary);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .content ul {

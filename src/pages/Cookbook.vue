@@ -1,5 +1,5 @@
 <script setup>
-import { ref, toRaw, computed } from 'vue'
+import { ref, toRaw, computed, reactive } from 'vue'
 import useDb from '../use/useDb'
 import PageHeader from '../components/PageHeader.vue'
 import Button from '../components/Button.vue'
@@ -14,7 +14,7 @@ const sort = ref('')
 const search = ref('')
 const ascendingSort = ref(true)
 const selectedRecipe = ref(null)
-const notification = ref('')
+const notification = reactive({ message: '', type: '' })
 
 const { items, list, fetching, bookmarkRecipe, fetching: dbRefreshing } = useDb('cookbook')
 
@@ -83,27 +83,27 @@ function parseTime(timeStr) {
 }
 
 async function bookmark() {
-  try {
-    const dbData = { ...selectedRecipe.value, createdAt: new Date() }
+  const dbData = { ...selectedRecipe.value, createdAt: new Date() }
 
-    await bookmarkRecipe(dbData, recipeBookmarkedCallback)
-  } finally {
-    setTimeout(() => {
-      notification.value = ''
-    }, 3000)
-  }
+  await bookmarkRecipe(dbData, recipeBookmarkedCallback)
 }
 
 function recipeBookmarkedCallback(state) {
-  notification.value = state ? 'Recipe bookmarked!' : 'Recipe removed from bookmarks!'
+  notification.message = state ? 'Recipe bookmarked!' : 'Recipe removed from bookmarks!'
+  notification.type = 'notice'
+
+  setTimeout(() => {
+    notification.message = ''
+    notification.type = ''
+  }, 3000)
 }
 
 list()
 </script>
 
 <template>
-  <Notification :message="notification" />
-  <PageHeader title="My Cookbook" :fetching="fetching">
+  <Notification :message="notification.message" :type="notification.type" />
+  <PageHeader title="My Cookbook">
     <template #action v-if="selectedRecipe != null">
       <Button link @click="selectedRecipe = null">
         <span style="font-size: 1rem"><i class="fa-solid fa-hand-point-left"></i> Go Back</span>
@@ -166,10 +166,10 @@ list()
     </EmptyContent>
     <div v-else-if="selectedRecipe != null">
       <Recipe
+        :fetching-bookmark-status="dbRefreshing"
         :recipe="selectedRecipe"
         :bookmarked="selectedRecipeBookmarked"
         @bookmark="bookmark"
-        :fetching-bookmark-status="dbRefreshing"
       >
         <template #actions>
           <div class="actions">

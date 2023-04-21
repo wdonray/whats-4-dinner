@@ -38,7 +38,8 @@ const props = defineProps({
 }
 
 .notice {
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
+  color: black;
 }
 
 .success {

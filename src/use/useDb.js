@@ -14,29 +14,25 @@ export default function useDb(dbLocation) {
 
   const path = vue.computed(() => `${currentUser.uid}:${dbLocation}`)
 
-  async function save(data) {
-    await execute(async () => {
-      const docRef = doc(db, path.value, data.id)
-      const set = await setDoc(docRef, { [data.id]: data }, { merge: true })
-      saved.value = set
-    })
-  }
-
   async function list() {
-    await execute(async () => {
-      const querySnapshot = await getDocs(collection(db, path.value))
-      items.value = querySnapshot.size > 0 ? querySnapshot.docs.map((doc) => doc.data()) : []
-    })
+    fetching.value = true
+    const querySnapshot = await getDocs(collection(db, path.value))
+    items.value = querySnapshot.size > 0 ? querySnapshot.docs.map((doc) => doc.data()) : []
+    fetching.value = false
   }
 
   async function remove(data) {
-    await execute(async () => {
-      const docRef = doc(db, path.value, data.id)
-      await deleteDoc(docRef)
-    })
+    const docRef = doc(db, path.value, data.id)
+    await deleteDoc(docRef)
+  }
+
+  async function save(data) {
+    const docRef = doc(db, path.value, data.id)
+    saved.value = await setDoc(docRef, { [data.id]: data }, { merge: true })
   }
 
   async function bookmarkRecipe(data, callback) {
+    fetching.value = true
     const recipes = vue.toRaw(items.value).map((item) => Object.values(item)[0])
     const isBookmarked = recipes.some((item) => item.id === data.id)
 
@@ -46,20 +42,13 @@ export default function useDb(dbLocation) {
       await save(data)
     }
 
-    await list()
+    const querySnapshot = await getDocs(collection(db, path.value))
+    items.value = querySnapshot.size > 0 ? querySnapshot.docs.map((doc) => doc.data()) : []
 
+    fetching.value = false
     callback(!isBookmarked)
-
     return !isBookmarked
   }
 
-  async function execute(callback) {
-    fetching.value = true
-
-    await callback()
-
-    fetching.value = false
-  }
-
-  return { save, list, saved, items, fetching, bookmarkRecipe }
+  return { list, saved, items, fetching, bookmarkRecipe }
 }

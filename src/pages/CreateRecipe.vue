@@ -84,7 +84,7 @@ function recipeBookmarkedCallback(state) {
 <template>
   <Notification :message="notification" :type="notificationType" />
   <div class="recipe-container">
-    <PageHeader title="Recipes" :fetching="fetching">
+    <PageHeader title="Recipes">
       <template #search>
         <form @submit.prevent="submit">
           <div style="position: relative">

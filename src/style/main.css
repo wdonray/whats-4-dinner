@@ -73,6 +73,7 @@ body {
   line-height: 1;
   transition: background-color 0.5s;
   font-weight: 600;
+  font-size: 16px;
 }
 
 .btn:hover {
@@ -271,8 +272,8 @@ select {
   max-width: 400px;
   padding: var(--space-sm);
   border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
-  background-color: var(--color-background);
+  border: transparent;
+  background-color: #e2eaea;
   color: var(--color-text);
   width: calc(100% - 20px);
   font-size: 1rem;
@@ -284,11 +285,6 @@ select:focus {
   outline: var(--color-primary);
 }
 
-input::placeholder,
-select::placeholder {
-  opacity: 0.7;
-}
-
 input option,
 select option {
   color: black;
@@ -296,7 +292,7 @@ select option {
 
 .post {
   position: absolute;
-  left: 95%;
+  left: 92%;
   top: 50%;
   transform: translate(-50%, -50%);
   font-size: var(--space-md);
@@ -332,4 +328,20 @@ select option {
 
 a {
   cursor: pointer;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 14px;
 }

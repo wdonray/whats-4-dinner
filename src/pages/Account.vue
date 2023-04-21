@@ -143,33 +143,33 @@ function reset() {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-3xl);
+}
 
-  .grid-stack {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
+.account .grid-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
 
-    &:not(:last-child) {
-      margin-bottom: var(--space-xl);
-    }
-  }
+.account .grid-stack:not(:last-child) {
+  margin-bottom: var(--space-xl);
+}
 
-  .grid-row {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr auto;
-    align-items: center;
+.account .grid-row {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr auto;
+  align-items: center;
+}
 
-    h4 {
-      margin: 0;
-    }
-  }
+.account .grid-row h4 {
+  margin: 0;
+}
 
-  .footer {
-    padding: 1rem 2rem;
+.account .footer {
+  padding: 1rem 2rem;
+}
 
-    button {
-      padding: 0.5rem 2rem;
-    }
-  }
+.account .footer button {
+  padding: 0.5rem 2rem;
 }
 </style>

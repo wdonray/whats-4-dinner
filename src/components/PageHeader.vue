@@ -3,8 +3,7 @@ import { randomFoodIcon } from '../utils/foodIcons'
 import { computed } from 'vue'
 
 defineProps({
-  title: { type: String, required: true },
-  fetching: { type: Boolean, required: true }
+  title: { type: String, required: true }
 })
 
 defineEmits(['submit'])
@@ -35,5 +34,6 @@ const foodIcon = computed(() => randomFoodIcon())
   grid-template-columns: 1.5fr 1fr;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
 }
 </style>
