@@ -6,9 +6,7 @@
           <Spinner size="1.5rem" />
         </div>
       </Transition>
-
       <img :src="formatbase4ToImage(imageData?.data[0].b64_json || recipe.base64Image)" />
-
       <i
         @click="!fetchingBookmarkStatus ? $emit('bookmark', recipe) : null"
         class="fa-bookmark"
@@ -114,6 +112,8 @@ defineProps({
 @media (max-width: 768px) {
   .content .image-container {
     margin: 0 auto;
+    width: 300px;
+    height: 300px;
   }
 }
 
@@ -142,6 +142,12 @@ defineProps({
   bottom: 88%;
   transform: translate(-50%, -50%);
   z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .content .image-container .fa-bookmark {
+    bottom: 84%;
+  }
 }
 
 .content .image-container .fa-bookmark.disabled-icon {

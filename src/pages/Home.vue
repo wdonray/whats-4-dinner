@@ -38,6 +38,18 @@ h1 {
   font-weight: 900;
 }
 
+@media (max-width: 768px) {
+  .header {
+    align-items: start;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  h1 {
+    margin: 0;
+  }
+}
+
 .hero {
   display: grid;
   grid-template-columns: 1fr;

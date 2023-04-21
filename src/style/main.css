@@ -253,6 +253,16 @@ small {
   background-color: var(--color-underblock);
 }
 
+@media (max-width: 405px) {
+  .underblock {
+    text-align: center;
+  }
+
+  .underblock::after {
+    display: none;
+  }
+}
+
 .slide-down-enter-from,
 .slide-down-leave-to {
   opacity: 0;

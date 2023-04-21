@@ -78,6 +78,7 @@ async function bookmark() {
 
 function recipeBookmarkedCallback(state) {
   notification.value = state ? 'Recipe bookmarked!' : 'Recipe removed from bookmarks!'
+  notificationType.value = 'notice'
 }
 </script>
 

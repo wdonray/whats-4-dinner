@@ -9,8 +9,16 @@ const { mobile, tablet } = useBreakpoint()
 defineProps({ currentUser: { type: Object, required: true } })
 
 const authedMenuItems = computed(() => [
-  { label: 'Create recipe', link: '/create-recipe', icon: 'fa-solid fa-square-plus' },
-  { label: 'My cookbook', link: '/cookbook', icon: 'fa-solid fa-book-bookmark' },
+  {
+    label: mobile ? 'Create' : 'Create recipe',
+    link: '/create-recipe',
+    icon: 'fa-solid fa-square-plus'
+  },
+  {
+    label: mobile ? 'Cookbook' : 'My cookbook',
+    link: '/cookbook',
+    icon: 'fa-solid fa-book-bookmark'
+  },
   { label: 'About', link: '/about', icon: 'fa-solid fa-circle-info' },
   { label: 'Profile', link: '/account', icon: 'fa-solid fa-user' }
 ])
@@ -31,6 +39,12 @@ const mainNavClass = computed(() => {
 
 const menuItemClass = computed(() => {
   return tablet.value ? 'menu-item' : 'mobile-menu-item'
+})
+
+const iconStyle = computed(() => {
+  return mobile.value
+    ? 'margin-right: var(--space-xs); font-size: 1rem'
+    : 'margin-right: var(--space-md); font-size: 1rem'
 })
 
 async function handleLogout() {
@@ -55,17 +69,12 @@ async function handleLogout() {
         :to="item.link"
         :key="index"
       >
-        <i
-          v-if="item.icon"
-          :class="item.icon"
-          style="margin-right: var(--space-md); font-size: 1rem"
-        ></i>
-
+        <i v-if="item.icon" :class="item.icon" :style="iconStyle"></i>
         <span v-if="$route.path === item.link || !mobile">{{ item.label }}</span>
       </RouterLink>
       <a v-if="currentUser" :class="menuItemClass" href="#" @click="handleLogout">
+        <i class="fa-solid fa-right-from-bracket" :style="iconStyle"></i>
         <span v-if="!mobile">Logout</span>
-        <i class="fa-solid fa-right-from-bracket"></i>
       </a>
     </div>
   </nav>
@@ -152,6 +161,11 @@ async function handleLogout() {
   padding: var(--space-md);
   color: var(--color-primary);
   font-size: 16px;
+  user-select: none;
+}
+
+.mobile-menu-item:focus {
+  outline: none;
 }
 
 .menu-item:hover {
