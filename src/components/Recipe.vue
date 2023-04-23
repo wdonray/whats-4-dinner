@@ -170,7 +170,6 @@ defineProps({
 .content ul {
   padding: var(--space-md);
   display: grid;
-  grid-template-columns: 1fr;
   gap: var(--space-sm);
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }

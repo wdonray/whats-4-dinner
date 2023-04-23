@@ -120,8 +120,6 @@ watch(currentItem, () => (imageLoading.value = true))
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   background-color: var(--color-primary);
   opacity: 0.3;
   width: 100%;
