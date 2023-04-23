@@ -18,7 +18,7 @@ defineProps({
 <style scoped>
 .spinner {
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  background-color: var(--color-primary);
+  background-color: var(--color-text);
   border-radius: 100%;
   display: inline-block;
   width: v-bind(size);

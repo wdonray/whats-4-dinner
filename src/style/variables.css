@@ -1,0 +1,19 @@
+:root {
+  --background-color: white;
+  --color-primary: #ff4d1b;
+  --color-secondary: #ffe4dd;
+  --color-focus: #025da9;
+  --color-text: black;
+  --color-border: #ff4d1b;
+  --color-disabled: #5e6167;
+  --border-radius: 0.25rem;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 2.5rem;
+  --space-3xl: 3rem;
+  --ease-out-custom: cubic-bezier(0.38, 0.7, 0.125, 1);
+  --main-nav-height: 77px;
+}

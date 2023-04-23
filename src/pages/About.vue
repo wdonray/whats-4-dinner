@@ -133,5 +133,3 @@ import PageHeader from '../components/PageHeader.vue'
   height: auto;
 }
 </style>
-
-<!-- Drop each section in on page load -->

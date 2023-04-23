@@ -1,0 +1,89 @@
+a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+a:hover {
+  text-underline-offset: 3px;
+  background-color: transparent;
+}
+
+a.no-underline:hover {
+  text-decoration: none;
+}
+
+span,
+p {
+  line-height: 1.5;
+}
+
+hr {
+  border-bottom-width: 0;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-md) 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+html {
+  background-color: var(--background-color);
+  font-size: 1rem;
+  font-family: Laksa, system-ui;
+  color: var(--color-text);
+  line-height: 1.38;
+}
+
+body {
+  user-select: none;
+  touch-action: pan-y;
+  padding: 0;
+  margin: 0;
+}
+
+p,
+td,
+dd,
+span,
+small {
+  user-select: text;
+}
+
+input,
+select {
+  padding: var(--space-sm);
+  border-radius: var(--border-radius);
+  border: transparent;
+  color: var(--color-text);
+  width: calc(100% - 20px);
+  font-size: 1rem;
+}
+
+input:focus,
+select:focus {
+  outline: var(--color-primary);
+}
+
+input option,
+select option {
+  color: black;
+}
+
+a {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 14px;
+}

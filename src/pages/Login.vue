@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
 import { useRouter } from 'vue-router'
 import Button from '../components/Button.vue'
+import UnauthenticatedWrapper from '../components/UnauthenticatedWrapper.vue'
 
 const email = ref('donrayxwilliams@gmail.com')
 const password = ref('randompassword')
@@ -23,69 +24,54 @@ async function submit() {
 </script>
 
 <template>
-  <form @submit.prevent="submit">
-    <div class="inner-container">
-      <h1>Login</h1>
-      <hr />
+  <UnauthenticatedWrapper>
+    <form @submit.prevent="submit">
       <div class="form-group">
-        <label for="email">Email address</label>
         <input
           v-model="email"
           type="email"
           class="form-control"
           id="email"
           aria-describedby="emailHelp"
-          placeholder="Enter email"
+          placeholder="Email address"
+          :disabled="fetching"
           required
         />
-        <small id="emailHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
       </div>
-      <div class="form-group">
-        <div class="row">
-          <label for="password">Password</label>
-          <a href="#" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</a>
-        </div>
-
+      <div class="form-group password">
+        <a href="#" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</a>
         <input
           v-model="password"
           :type="showPassword ? 'text' : 'password'"
           class="form-control"
           id="password"
-          placeholder="Enter Password"
+          placeholder="Password"
+          :disabled="fetching"
           required
         />
       </div>
-      <Button type="submit" :loading="fetching" class="btn btn-primary">Submit</Button>
-    </div>
-  </form>
+      <RouterLink class="forgot-password" to="/forgot-password">Forgot your password?</RouterLink>
+      <Button type="submit" :loading="fetching" class="btn btn-primary">Log in</Button>
+      <span class="footer-text">
+        Don't have an account? <RouterLink to="/create-account">Sign up</RouterLink>
+      </span>
+    </form>
+  </UnauthenticatedWrapper>
 </template>
 
 <style scoped>
-form {
-  position: relative;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: var(--space-md);
+.forgot-password {
+  color: white;
+  text-align: end;
+  font-size: 13px;
 }
 
-form .inner-container {
-  padding: var(--space-md) var(--space-3xl);
-}
-
-form .form-group {
-  max-width: 400px;
-  margin-bottom: 1rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.5rem;
-}
-
-form .row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
+@media (min-width: 768px) {
+  .forgot-password {
+    width: 450px;
+    font-size: 20px;
+    margin: auto;
+    font-size: 1rem;
+  }
 }
 </style>

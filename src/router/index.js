@@ -9,7 +9,8 @@ const routeAuthMap = {
   'create-account': false,
   contact: false,
   cookbook: true,
-  account: true
+  account: true,
+  'forgot-password': false
 }
 
 function createRoute(route) {
