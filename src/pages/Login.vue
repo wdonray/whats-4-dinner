@@ -69,7 +69,6 @@ async function submit() {
 @media (min-width: 768px) {
   .forgot-password {
     width: 450px;
-    font-size: 20px;
     margin: auto;
     font-size: 1rem;
   }
