@@ -160,7 +160,7 @@ list()
       <h1 class="underblock" style="margin: 0">Cookbook empty</h1>
       <div class="navigate">
         <i class="fa-solid fa-arrow-right"></i>
-        <Button link to="/recipes"><h3>starting saving some here</h3></Button>
+        <Button link to="/create-recipe"><h3>starting saving some here</h3></Button>
         <i class="fa-solid fa-arrow-left"></i>
       </div>
     </EmptyContent>

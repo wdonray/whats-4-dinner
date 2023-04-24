@@ -46,7 +46,7 @@ async function submit() {
     })
 
     await generateImage({
-      prompt: `Real food image of ${search.value}`,
+      prompt: `Real food image of ${recipe.value.recipeName}`,
       n: 1,
       size: '256x256',
       response_format: 'b64_json'

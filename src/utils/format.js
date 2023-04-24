@@ -12,14 +12,16 @@ export function formatbase64ToImage(base64) {
 }
 
 export function localDate(dateString) {
-  return new Date(dateString.slice(0, 10).replaceAll('-', '/')) // replace - with / in ISO date to avoid UTC conversion
+  return new Date(dateString.slice(0, 10).replaceAll('-', '/'))
 }
 
 export function formatDateISO(date) {
-  let d = new Date(date)
-  let month = '' + (d.getMonth() + 1)
-  let day = '' + d.getDate()
-  let year = d.getFullYear()
+  const monthOffset = 1 // Months in JS are 0-11
+
+  const date = new Date(date)
+  let day = String(date.getDate())
+  let month = String(date.getMonth() + monthOffset)
+  let year = date.getFullYear()
 
   if (month.length < 2) month = '0' + month
   if (day.length < 2) day = '0' + day
