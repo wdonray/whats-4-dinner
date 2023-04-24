@@ -1,5 +1,8 @@
 <script setup>
 import Button from '../components/Button.vue'
+import QuickSearchSection from '../components/QuickSearchSection.vue'
+
+const quickSearchSections = ['Popular ingredients', 'Top meals', 'Cuisine']
 </script>
 
 <template>
@@ -11,10 +14,17 @@ import Button from '../components/Button.vue'
           <h1 class="underblock">What's 4 Dinner!</h1>
         </span>
         <hr />
-        <h3>Discover delicious recipes for every occasion</h3>
         <div class="btn-actions">
-          <Button class="btn-primary" to="/create-recipe"> Get cooking</Button>
-          <Button class="btn-secondary" to="/cookbook"> Cookbook</Button>
+          <Button class="btn-primary" to="/create-recipe">Generate recipes</Button>
+          <Button class="btn-secondary" to="/cookbook">My cookbook</Button>
+          <Button class="btn-secondary" to="/about">About us</Button>
+        </div>
+        <div class="quick-search">
+          <QuickSearchSection
+            v-for="header in quickSearchSections"
+            :header="header"
+            :key="header"
+          />
         </div>
       </div>
     </section>
@@ -25,7 +35,9 @@ import Button from '../components/Button.vue'
 .btn-actions {
   display: flex;
   gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
 }
+
 .header {
   display: flex;
   align-items: center;
@@ -38,6 +50,12 @@ h1 {
   font-weight: 900;
 }
 
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
 @media (max-width: 768px) {
   .header {
     align-items: start;
@@ -48,11 +66,5 @@ h1 {
   h1 {
     margin: 0;
   }
-}
-
-.hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
 }
 </style>

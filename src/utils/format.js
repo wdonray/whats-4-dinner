@@ -7,7 +7,7 @@ export function formatText(name) {
   return formattedName.charAt(0).toUpperCase() + formattedName.slice(1)
 }
 
-export function formatbase4ToImage(base64) {
+export function formatbase64ToImage(base64) {
   return `data:image/png;base64,${base64}`
 }
 

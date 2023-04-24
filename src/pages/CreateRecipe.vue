@@ -1,13 +1,16 @@
 <script setup>
 import Button from '../components/Button.vue'
 import useApiFetch from '../use/useApiFetch'
-import { computed, ref } from 'vue'
+import { computed, ref, onBeforeMount } from 'vue'
 import Notification from '../components/Notification.vue'
 import { createAndDownloadPdf } from '../utils/pdf'
 import useDb from '../use/useDb'
 import PageHeader from '../components/PageHeader.vue'
 import EmptyContent from '../components/EmptyContent.vue'
 import Recipe from '../components/Recipe.vue'
+import { useRouter } from 'vue-router'
+
+const { currentRoute } = useRouter()
 
 const search = ref('')
 const notification = ref('')
@@ -80,6 +83,15 @@ function recipeBookmarkedCallback(state) {
   notification.value = state ? 'Recipe bookmarked!' : 'Recipe removed from bookmarks!'
   notificationType.value = 'notice'
 }
+
+onBeforeMount(() => {
+  const { search: queryValue } = currentRoute.value.query
+
+  if (!queryValue) return
+
+  search.value = queryValue
+  submit()
+})
 </script>
 
 <template>

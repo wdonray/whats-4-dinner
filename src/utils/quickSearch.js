@@ -1,0 +1,70 @@
+const mostSearchedFoodIngredients = [
+  'Garlic',
+  'Onion',
+  'Tomato',
+  'Chicken',
+  'Beef',
+  'Rice',
+  'Pasta',
+  'Potato',
+  'Avocado',
+  'Lemon',
+  'Ginger',
+  'Cheese',
+  'Spinach',
+  'Broccoli',
+  'Carrots',
+  'Eggplant',
+  'Salmon',
+  'Shrimp',
+  'Soy sauce',
+  'Bread'
+]
+
+const mostSearchedMeals = [
+  'Spaghetti Carbonara',
+  'Chicken Parmesan',
+  'Tacos',
+  'Pizza',
+  'Hamburger',
+  'Grilled Cheese Sandwich',
+  'Roast Beef',
+  'Pad Thai',
+  'Fried Rice',
+  'Miso Soup',
+  'Pho',
+  'Tuna Salad',
+  'Pasta Salad',
+  'Caesar Salad',
+  'Chili',
+  'Burrito',
+  'Sushi',
+  'Stir Fry',
+  'Fish and Chips',
+  "Shepherd's Pie"
+]
+
+const mostSearchedCuisines = [
+  'Italian',
+  'Chinese',
+  'Mexican',
+  'Japanese',
+  'Thai',
+  'Indian',
+  'Mediterranean',
+  'French',
+  'Korean',
+  'Greek',
+  'American',
+  'Spanish',
+  'Vietnamese',
+  'Middle Eastern',
+  'Caribbean',
+  'Brazilian',
+  'Peruvian',
+  'Moroccan',
+  'Turkish',
+  'Russian'
+]
+
+export { mostSearchedFoodIngredients, mostSearchedMeals, mostSearchedCuisines }

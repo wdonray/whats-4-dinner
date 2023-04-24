@@ -1,5 +1,5 @@
 <script setup>
-import { formatbase4ToImage, formatDate } from '../utils/format'
+import { formatbase64ToImage, formatDate } from '../utils/format'
 
 defineProps({
   recipe: { type: Object, required: true }
@@ -8,7 +8,7 @@ defineProps({
 
 <template>
   <div class="recipe" @click="$emit('select', recipe)">
-    <img :src="formatbase4ToImage(recipe.base64Image)" :alt="recipe.recipeName" />
+    <img :src="formatbase64ToImage(recipe.base64Image)" :alt="recipe.recipeName" />
     <div class="content">
       <h2 style="margin-top: 0">{{ recipe.recipeName }}</h2>
       <div class="inner-content">

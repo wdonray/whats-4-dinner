@@ -6,7 +6,7 @@
           <Spinner size="1.5rem" />
         </div>
       </Transition>
-      <img :src="formatbase4ToImage(imageData?.data[0].b64_json || recipe.base64Image)" />
+      <img :src="formatbase64ToImage(imageData?.data[0].b64_json || recipe.base64Image)" />
       <i
         @click="!fetchingBookmarkStatus ? $emit('bookmark', recipe) : null"
         class="fa-bookmark"
@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { formatbase4ToImage } from '../utils/format'
+import { formatbase64ToImage } from '../utils/format'
 import Spinner from './Spinner.vue'
 
 defineProps({

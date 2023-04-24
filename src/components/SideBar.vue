@@ -10,6 +10,11 @@ defineProps({ currentUser: { type: Object, required: true } })
 
 const authedMenuItems = computed(() => [
   {
+    label: 'Home',
+    link: '/',
+    icon: 'fa-solid fa-home'
+  },
+  {
     label: mobile ? 'Create' : 'Create recipe',
     link: '/create-recipe',
     icon: 'fa-solid fa-square-plus'
@@ -19,7 +24,6 @@ const authedMenuItems = computed(() => [
     link: '/cookbook',
     icon: 'fa-solid fa-book-bookmark'
   },
-  { label: 'About', link: '/about', icon: 'fa-solid fa-circle-info' },
   { label: 'Profile', link: '/account', icon: 'fa-solid fa-user' }
 ])
 
@@ -170,6 +174,12 @@ async function handleLogout() {
 
 .menu-item:hover {
   cursor: pointer;
+  background-color: var(--color-secondary);
+  opacity: 0.4;
+  filter: brightness(95%);
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .active {
