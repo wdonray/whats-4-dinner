@@ -18,10 +18,10 @@ export function localDate(dateString) {
 export function formatDateISO(date) {
   const monthOffset = 1 // Months in JS are 0-11
 
-  const date = new Date(date)
-  let day = String(date.getDate())
-  let month = String(date.getMonth() + monthOffset)
-  let year = date.getFullYear()
+  const d = new Date(date)
+  let day = String(d.getDate())
+  let month = String(d.getMonth() + monthOffset)
+  let year = d.getFullYear()
 
   if (month.length < 2) month = '0' + month
   if (day.length < 2) day = '0' + day
